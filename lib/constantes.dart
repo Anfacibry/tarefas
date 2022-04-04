@@ -8,3 +8,13 @@ class Cores {
   static const Color corBotaoCancelarECaixaTexto = Color(0xFFD5D5D5);
   static const Color corItensParaFazer = Color(0xFFF1F1F1);
 }
+
+class TamanhoTela {
+  double alturaTela(BuildContext context) {
+    return MediaQuery.of(context).size.height;
+  }
+
+  double larguraTela(BuildContext context) {
+    return MediaQuery.of(context).size.width;
+  }
+}
