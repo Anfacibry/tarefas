@@ -118,9 +118,8 @@ class _HomeState extends State<Home> {
       body: SizedBox(
         height: altura,
         width: largura,
-        child: Center(
-            child: Padding(
-          padding: const EdgeInsets.only(right: 10, left: 10),
+        child: Padding(
+          padding: EdgeInsets.only(left: largura * .010),
           child: Column(
               children: itens
                   .map(
@@ -132,7 +131,7 @@ class _HomeState extends State<Home> {
                     ),
                   )
                   .toList()),
-        )),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => caixaParaAddItem(
