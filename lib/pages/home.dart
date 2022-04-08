@@ -101,6 +101,13 @@ class _HomeState extends State<Home> {
             ));
   }
 
+  //Função callbak que remove um item
+  void remover(Item item) {
+    setState(() {
+      itens.remove(item);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double altura = TamanhoTela().alturaTela(context);
@@ -124,6 +131,8 @@ class _HomeState extends State<Home> {
               children: itens
                   .map(
                     (e) => ItensApresentador(
+                      itemPego: e,
+                      fun: (e) => remover(e),
                       item: e.nomeItem,
                       data: e.dataItem,
                       altura: altura,
