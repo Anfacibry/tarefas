@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tarefas/components/item.dart';
 import 'package:tarefas/constantes.dart';
 
 class ItensApresentador extends StatefulWidget {
   final String item;
   final DateTime data;
   final double altura, largura;
+  final void Function(Item)? fun;
+  final Item? itemPego;
   const ItensApresentador(
       {required this.item,
       required this.data,
       required this.altura,
       required this.largura,
+      this.itemPego,
+      this.fun,
       Key? key})
       : super(key: key);
 
@@ -19,8 +24,10 @@ class ItensApresentador extends StatefulWidget {
 }
 
 class _ItensApresentadorState extends State<ItensApresentador> {
-  Color corBotoaConfirmar = Cores.corConfirmar;
-  IconData iconConfirmar = Icons.check_circle;
+  Color corBotoaConfirmar = Cores.corTextDialogo;
+  Color corContainerItem = Cores.corItensParaFazer;
+  IconData iconConfirmar = Icons.check_circle_outline;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -48,7 +55,9 @@ class _ItensApresentadorState extends State<ItensApresentador> {
                             style: TextStyle(
                               fontSize: constraints.maxHeight * .2,
                               fontWeight: FontWeight.w500,
-                              color: Cores.corTextDialogo,
+                              color: corContainerItem == Cores.corItensParaFazer
+                                  ? Cores.corTextDialogo
+                                  : Cores.corItensParaFazer,
                             ),
                           ),
                           SingleChildScrollView(
@@ -58,7 +67,10 @@ class _ItensApresentadorState extends State<ItensApresentador> {
                               style: TextStyle(
                                 fontSize: constraints.maxHeight * .4,
                                 fontWeight: FontWeight.bold,
-                                color: Cores.corTextDialogo,
+                                color:
+                                    corContainerItem == Cores.corItensParaFazer
+                                        ? Cores.corTextDialogo
+                                        : Cores.corItensParaFazer,
                               ),
                             ),
                           ),
@@ -66,20 +78,34 @@ class _ItensApresentadorState extends State<ItensApresentador> {
                       ),
                     ))),
             decoration: BoxDecoration(
-              color: Cores.corItensParaFazer,
+              color: corContainerItem,
               borderRadius: BorderRadius.circular(10),
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              widget.fun!(widget.itemPego!);
+              setState(() {});
+            },
             icon: Icon(
               Icons.cancel_outlined,
+              color: Cores.corTextDialogo,
               size: widget.largura * .04,
             ),
           ),
           IconButton(
             onPressed: () {
-              setState(() {});
+              setState(() {
+                if (corBotoaConfirmar == Cores.corConfirmar) {
+                  corBotoaConfirmar = Cores.corTextDialogo;
+                  iconConfirmar = Icons.check_circle_outline;
+                  corContainerItem = Cores.corItensParaFazer;
+                } else {
+                  corBotoaConfirmar = Cores.corConfirmar;
+                  iconConfirmar = Icons.check_circle;
+                  corContainerItem = Cores.corConfirmar;
+                }
+              });
             },
             icon: Icon(
               iconConfirmar,
