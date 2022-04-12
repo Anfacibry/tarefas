@@ -24,10 +24,6 @@ class ItensApresentador extends StatefulWidget {
 }
 
 class _ItensApresentadorState extends State<ItensApresentador> {
-  Color corBotoaConfirmar = Cores.corTextDialogo;
-  Color corContainerItem = Cores.corItensParaFazer;
-  IconData iconConfirmar = Icons.check_circle_outline;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -55,7 +51,8 @@ class _ItensApresentadorState extends State<ItensApresentador> {
                             style: TextStyle(
                               fontSize: constraints.maxHeight * .2,
                               fontWeight: FontWeight.w500,
-                              color: corContainerItem == Cores.corItensParaFazer
+                              color: widget.itemPego!.corContainerItem ==
+                                      Cores.corItensParaFazer
                                   ? Cores.corTextDialogo
                                   : Cores.corItensParaFazer,
                             ),
@@ -67,10 +64,10 @@ class _ItensApresentadorState extends State<ItensApresentador> {
                               style: TextStyle(
                                 fontSize: constraints.maxHeight * .4,
                                 fontWeight: FontWeight.bold,
-                                color:
-                                    corContainerItem == Cores.corItensParaFazer
-                                        ? Cores.corTextDialogo
-                                        : Cores.corItensParaFazer,
+                                color: widget.itemPego!.corContainerItem ==
+                                        Cores.corItensParaFazer
+                                    ? Cores.corTextDialogo
+                                    : Cores.corItensParaFazer,
                               ),
                             ),
                           ),
@@ -78,7 +75,7 @@ class _ItensApresentadorState extends State<ItensApresentador> {
                       ),
                     ))),
             decoration: BoxDecoration(
-              color: corContainerItem,
+              color: widget.itemPego!.corContainerItem,
               borderRadius: BorderRadius.circular(10),
             ),
           ),
@@ -96,21 +93,21 @@ class _ItensApresentadorState extends State<ItensApresentador> {
           IconButton(
             onPressed: () {
               setState(() {
-                if (corBotoaConfirmar == Cores.corConfirmar) {
-                  corBotoaConfirmar = Cores.corTextDialogo;
-                  iconConfirmar = Icons.check_circle_outline;
-                  corContainerItem = Cores.corItensParaFazer;
+                if (widget.itemPego!.corBotoaConfirmar == Cores.corConfirmar) {
+                  widget.itemPego!.corBotoaConfirmar = Cores.corTextDialogo;
+                  widget.itemPego!.iconConfirmar = Icons.check_circle_outline;
+                  widget.itemPego!.corContainerItem = Cores.corItensParaFazer;
                 } else {
-                  corBotoaConfirmar = Cores.corConfirmar;
-                  iconConfirmar = Icons.check_circle;
-                  corContainerItem = Cores.corConfirmar;
+                  widget.itemPego!.corBotoaConfirmar = Cores.corConfirmar;
+                  widget.itemPego!.iconConfirmar = Icons.check_circle;
+                  widget.itemPego!.corContainerItem = Cores.corConfirmar;
                 }
               });
             },
             icon: Icon(
-              iconConfirmar,
+              widget.itemPego!.iconConfirmar,
               size: widget.largura * .04,
-              color: corBotoaConfirmar,
+              color: widget.itemPego!.corBotoaConfirmar,
             ),
           ),
         ],
