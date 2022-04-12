@@ -40,6 +40,7 @@ class _HomeState extends State<Home> {
                 width: larguraPega * .8,
                 child: Column(
                   children: [
+                    //Caixa de texto para ser adicionado os itens
                     TextField(
                       decoration: InputDecoration(
                           label: const Text("Item"),
@@ -80,6 +81,7 @@ class _HomeState extends State<Home> {
                           },
                           cor: Cores.corBotaoCancelarECaixaTexto,
                         ),
+                        //Botão de adicionar item pego da caixa de texto
                         Botao(
                           titulo: "Adicionar",
                           fun: () {
