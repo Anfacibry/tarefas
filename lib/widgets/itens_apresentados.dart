@@ -49,7 +49,7 @@ class _ItensApresentadorState extends State<ItensApresentador> {
                                 .format(widget.data)
                                 .toString(),
                             style: TextStyle(
-                              fontSize: constraints.maxHeight * .2,
+                              fontSize: constraints.maxHeight * .18,
                               fontWeight: FontWeight.w500,
                               color: widget.itemPego!.corContainerItem ==
                                       Cores.corItensParaFazer
@@ -62,7 +62,7 @@ class _ItensApresentadorState extends State<ItensApresentador> {
                             child: Text(
                               widget.item,
                               style: TextStyle(
-                                fontSize: constraints.maxHeight * .4,
+                                fontSize: constraints.maxHeight * .33,
                                 fontWeight: FontWeight.bold,
                                 color: widget.itemPego!.corContainerItem ==
                                         Cores.corItensParaFazer
