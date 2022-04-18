@@ -7,7 +7,8 @@ class ItensApresentador extends StatefulWidget {
   final String item;
   final DateTime data;
   final double altura, largura;
-  final void Function(Item)? fun;
+  final void Function(Item)? funRemove;
+  final void Function(Item)? funAdd;
   final Item? itemPego;
   const ItensApresentador(
       {required this.item,
@@ -15,7 +16,8 @@ class ItensApresentador extends StatefulWidget {
       required this.altura,
       required this.largura,
       this.itemPego,
-      this.fun,
+      this.funRemove,
+      this.funAdd,
       Key? key})
       : super(key: key);
 
@@ -79,10 +81,10 @@ class _ItensApresentadorState extends State<ItensApresentador> {
               borderRadius: BorderRadius.circular(10),
             ),
           ),
+          //Icone de com botão decancelar o item
           IconButton(
             onPressed: () {
-              widget.fun!(widget.itemPego!);
-              setState(() {});
+              widget.funRemove!(widget.itemPego!);
             },
             icon: Icon(
               Icons.cancel_outlined,
@@ -90,6 +92,7 @@ class _ItensApresentadorState extends State<ItensApresentador> {
               size: widget.largura * .04,
             ),
           ),
+          //Icone de com botão de confirmar o item o item
           IconButton(
             onPressed: () {
               setState(() {
