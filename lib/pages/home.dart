@@ -18,6 +18,7 @@ class _HomeState extends State<Home> {
   TextEditingController itemPegoController = TextEditingController();
   //List<Item> listaAddicionada = itens;
 
+  //Metodo para apresentação do dialogo
   void caixaParaAddItem({
     required BuildContext context,
     required double alturaPega,
@@ -104,9 +105,15 @@ class _HomeState extends State<Home> {
   }
 
   //Função callbak que remove um item
-  void remover(Item item) {
+  void remover(List<Item> lista, Item item) {
     setState(() {
-      itens.remove(item);
+      lista.remove(item);
+    });
+  }
+
+  void adicionando(List<Item> lista, Item item) {
+    setState(() {
+      lista.add(item);
     });
   }
 
@@ -130,18 +137,39 @@ class _HomeState extends State<Home> {
         child: Padding(
           padding: EdgeInsets.only(left: largura * .010),
           child: Column(
-              children: itens
-                  .map(
-                    (e) => ItensApresentador(
-                      itemPego: e,
-                      fun: (e) => remover(e),
-                      item: e.nomeItem,
-                      data: e.dataItem,
-                      altura: altura,
-                      largura: largura,
-                    ),
-                  )
-                  .toList()),
+            children: [
+              Column(
+                children: itens
+                    .map(
+                      (e) => ItensApresentador(
+                        itemPego: e,
+                        funRemove: (e) => remover(itens, e),
+                        funAdd: (e) => adicionando(itens, e),
+                        item: e.nomeItem,
+                        data: e.dataItem,
+                        altura: altura,
+                        largura: largura,
+                      ),
+                    )
+                    .toList(),
+              ),
+              Column(
+                children: itensConfirmados
+                    .map(
+                      (e) => ItensApresentador(
+                        itemPego: e,
+                        funRemove: (e) => remover(itensConfirmados, e),
+                        funAdd: (e) => adicionando(itensConfirmados, e),
+                        item: e.nomeItem,
+                        data: e.dataItem,
+                        altura: altura,
+                        largura: largura,
+                      ),
+                    )
+                    .toList(),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
