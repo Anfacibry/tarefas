@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:tarefas/constantes.dart';
 import 'package:tarefas/data/repositorio.dart';
 
@@ -118,6 +119,19 @@ class _HomeState extends State<Home> {
     setState(() {
       lista.add(item);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    todoRepositorio.pegandoLista().then(
+          (value) => {
+            setState(() {
+              itens = value;
+            })
+          },
+        );
   }
 
   @override
