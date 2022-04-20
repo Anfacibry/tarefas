@@ -17,6 +17,13 @@ class Item {
     this.iconConfirmar = Icons.check_circle_outline,
   });
 
+  Item.json(Map<String, dynamic> json)
+      : nomeItem = json["nomeItem"],
+        dataItem = DateTime.parse(json["dataItem"]),
+        corBotoaConfirmar = json["corBotoaConfirmar"],
+        corContainerItem = json["corContainerItem"],
+        iconConfirmar = json["iconConfirmar"];
+
   Map<String, dynamic> toJson() {
     return {
       "nomeItem": nomeItem,
