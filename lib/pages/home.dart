@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tarefas/constantes.dart';
+import 'package:tarefas/data/repositorio.dart';
 
 import 'package:tarefas/widgets/itens_apresentados.dart';
 
@@ -16,6 +17,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   TextEditingController itemPegoController = TextEditingController();
+  TodoRepositorio todoRepositorio = TodoRepositorio();
   //List<Item> listaAddicionada = itens;
 
   //Metodo para apresentação do dialogo
@@ -91,6 +93,7 @@ class _HomeState extends State<Home> {
                               itens.add(Item(
                                   nomeItem: text, dataItem: DateTime.now()));
                               itemPegoController.clear();
+                              todoRepositorio.salvandoLista(itens);
                             });
                             Navigator.pop(context);
                           },
