@@ -16,4 +16,14 @@ class Item {
     this.corContainerItem = Cores.corItensParaFazer,
     this.iconConfirmar = Icons.check_circle_outline,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "nomeItem": nomeItem,
+      "dataItem": dataItem.toIso8601String(),
+      "corBotoaConfirmar": corBotoaConfirmar.toString(),
+      "corContainerItem": corContainerItem.toString(),
+      "iconConfirmar": iconConfirmar.toString(),
+    };
+  }
 }
