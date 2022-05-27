@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tarefas/pages/home.dart';
+import 'package:tarefas/screens/home.dart';
 
 void main() {
   runApp(const MyApp());

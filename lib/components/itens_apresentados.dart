@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tarefas/components/item.dart';
-import 'package:tarefas/constantes.dart';
+import 'package:tarefas/models/item.dart';
+import 'package:tarefas/themes/constantes.dart';
 
 class ItensApresentador extends StatefulWidget {
   final String item;
@@ -38,6 +38,12 @@ class _ItensApresentadorState extends State<ItensApresentador> {
           Container(
             height: widget.altura * .08,
             width: widget.largura * .35,
+            decoration: BoxDecoration(
+              color: widget.itemPego!.confirmacao
+                  ? Cores.corConfirmar
+                  : Cores.corItensParaFazer,
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: LayoutBuilder(
                 builder: ((context, constraints) => Padding(
                       padding:
@@ -53,10 +59,9 @@ class _ItensApresentadorState extends State<ItensApresentador> {
                             style: TextStyle(
                               fontSize: constraints.maxHeight * .18,
                               fontWeight: FontWeight.w500,
-                              color: widget.itemPego!.corContainerItem ==
-                                      Cores.corItensParaFazer
-                                  ? Cores.corTextDialogo
-                                  : Cores.corItensParaFazer,
+                              color: widget.itemPego!.confirmacao
+                                  ? Cores.corItensParaFazer
+                                  : Cores.corTextDialogo,
                             ),
                           ),
                           SingleChildScrollView(
@@ -66,20 +71,15 @@ class _ItensApresentadorState extends State<ItensApresentador> {
                               style: TextStyle(
                                 fontSize: constraints.maxHeight * .33,
                                 fontWeight: FontWeight.bold,
-                                color: widget.itemPego!.corContainerItem ==
-                                        Cores.corItensParaFazer
-                                    ? Cores.corTextDialogo
-                                    : Cores.corItensParaFazer,
+                                color: widget.itemPego!.confirmacao
+                                    ? Cores.corItensParaFazer
+                                    : Cores.corTextDialogo,
                               ),
                             ),
                           ),
                         ],
                       ),
                     ))),
-            decoration: BoxDecoration(
-              color: widget.itemPego!.corContainerItem,
-              borderRadius: BorderRadius.circular(10),
-            ),
           ),
           //Icone de com botão decancelar o item
           IconButton(
@@ -94,23 +94,15 @@ class _ItensApresentadorState extends State<ItensApresentador> {
           ),
           //Icone de com botão de confirmar o item o item
           IconButton(
-            onPressed: () {
-              setState(() {
-                if (widget.itemPego!.corBotoaConfirmar == Cores.corConfirmar) {
-                  widget.itemPego!.corBotoaConfirmar = Cores.corTextDialogo;
-                  widget.itemPego!.iconConfirmar = Icons.check_circle_outline;
-                  widget.itemPego!.corContainerItem = Cores.corItensParaFazer;
-                } else {
-                  widget.itemPego!.corBotoaConfirmar = Cores.corConfirmar;
-                  widget.itemPego!.iconConfirmar = Icons.check_circle;
-                  widget.itemPego!.corContainerItem = Cores.corConfirmar;
-                }
-              });
-            },
+            onPressed: () {},
             icon: Icon(
-              widget.itemPego!.iconConfirmar,
+              widget.itemPego!.confirmacao
+                  ? Icons.check_circle
+                  : Icons.check_circle_outline,
               size: widget.largura * .04,
-              color: widget.itemPego!.corBotoaConfirmar,
+              color: widget.itemPego!.confirmacao
+                  ? Cores.corConfirmar
+                  : Cores.corTextDialogo,
             ),
           ),
         ],

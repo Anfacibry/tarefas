@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:tarefas/constantes.dart';
+import 'package:tarefas/themes/constantes.dart';
 
-import 'package:tarefas/widgets/itens_apresentados.dart';
+import 'package:tarefas/components/itens_apresentados.dart';
 
-import '../components/item.dart';
-import '../data/lista_itens.dart';
-import '../widgets/botao.dart';
+import '../models/item.dart';
+import '../services/data/lista_itens.dart';
+import '../components/botao.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -90,8 +90,12 @@ class _HomeState extends State<Home> {
                           fun: () {
                             setState(() {
                               String text = itemPegoController.text;
-                              itens.add(Item(
-                                  nomeItem: text, dataItem: DateTime.now()));
+                              itens.add(
+                                Item(
+                                    nomeItem: text,
+                                    dataItem: DateTime.now(),
+                                    confirmacao: false),
+                              );
                               itemPegoController.clear();
                             });
                             Navigator.pop(context);
@@ -148,21 +152,6 @@ class _HomeState extends State<Home> {
                           itemPego: e,
                           funRemove: (e) => remover(itens, e),
                           funAdd: (e) => adicionando(itens, e),
-                          item: e.nomeItem,
-                          data: e.dataItem,
-                          altura: altura,
-                          largura: largura,
-                        ),
-                      )
-                      .toList(),
-                ),
-                Column(
-                  children: itensConfirmados
-                      .map(
-                        (e) => ItensApresentador(
-                          itemPego: e,
-                          funRemove: (e) => remover(itensConfirmados, e),
-                          funAdd: (e) => adicionando(itensConfirmados, e),
                           item: e.nomeItem,
                           data: e.dataItem,
                           altura: altura,
