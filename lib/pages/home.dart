@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:tarefas/constantes.dart';
-import 'package:tarefas/data/repositorio.dart';
 
 import 'package:tarefas/widgets/itens_apresentados.dart';
 
@@ -18,7 +17,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   TextEditingController itemPegoController = TextEditingController();
-  TodoRepositorio todoRepositorio = TodoRepositorio();
+
   //List<Item> listaAddicionada = itens;
 
   //Metodo para apresentação do dialogo
@@ -94,7 +93,6 @@ class _HomeState extends State<Home> {
                               itens.add(Item(
                                   nomeItem: text, dataItem: DateTime.now()));
                               itemPegoController.clear();
-                              todoRepositorio.salvandoLista(itens);
                             });
                             Navigator.pop(context);
                           },
@@ -122,19 +120,6 @@ class _HomeState extends State<Home> {
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    todoRepositorio.pegandoLista().then(
-          (value) => {
-            setState(() {
-              itens = value;
-            })
-          },
-        );
-  }
-
-  @override
   Widget build(BuildContext context) {
     final double altura = TamanhoTela().alturaTela(context);
     final double largura = TamanhoTela().alturaTela(context);
@@ -153,39 +138,41 @@ class _HomeState extends State<Home> {
         width: largura,
         child: Padding(
           padding: EdgeInsets.only(left: largura * .010),
-          child: Column(
-            children: [
-              Column(
-                children: itens
-                    .map(
-                      (e) => ItensApresentador(
-                        itemPego: e,
-                        funRemove: (e) => remover(itens, e),
-                        funAdd: (e) => adicionando(itens, e),
-                        item: e.nomeItem,
-                        data: e.dataItem,
-                        altura: altura,
-                        largura: largura,
-                      ),
-                    )
-                    .toList(),
-              ),
-              Column(
-                children: itensConfirmados
-                    .map(
-                      (e) => ItensApresentador(
-                        itemPego: e,
-                        funRemove: (e) => remover(itensConfirmados, e),
-                        funAdd: (e) => adicionando(itensConfirmados, e),
-                        item: e.nomeItem,
-                        data: e.dataItem,
-                        altura: altura,
-                        largura: largura,
-                      ),
-                    )
-                    .toList(),
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Column(
+                  children: itens
+                      .map(
+                        (e) => ItensApresentador(
+                          itemPego: e,
+                          funRemove: (e) => remover(itens, e),
+                          funAdd: (e) => adicionando(itens, e),
+                          item: e.nomeItem,
+                          data: e.dataItem,
+                          altura: altura,
+                          largura: largura,
+                        ),
+                      )
+                      .toList(),
+                ),
+                Column(
+                  children: itensConfirmados
+                      .map(
+                        (e) => ItensApresentador(
+                          itemPego: e,
+                          funRemove: (e) => remover(itensConfirmados, e),
+                          funAdd: (e) => adicionando(itensConfirmados, e),
+                          item: e.nomeItem,
+                          data: e.dataItem,
+                          altura: altura,
+                          largura: largura,
+                        ),
+                      )
+                      .toList(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
