@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tarefas/components/itens_apresentados.dart';
+import 'package:tarefas/services/data/app_database.dart';
 
 import 'package:tarefas/themes/constantes.dart';
 
-import 'package:tarefas/components/itens_apresentados.dart';
-
 import '../models/item.dart';
-import '../services/data/lista_itens.dart';
 import '../components/botao.dart';
 
 class Home extends StatefulWidget {
@@ -90,12 +89,15 @@ class _HomeState extends State<Home> {
                           fun: () {
                             setState(() {
                               String text = itemPegoController.text;
-                              itens.add(
+                              salvandoItem(
                                 Item(
-                                    nomeItem: text,
-                                    dataItem: DateTime.now(),
-                                    confirmacao: false),
+                                  nomeItem: text,
+                                  dataItem: DateTime.now(),
+                                  confirmacao: 0,
+                                ),
                               );
+                              //deletandoDb();
+
                               itemPegoController.clear();
                             });
                             Navigator.pop(context);
@@ -108,19 +110,6 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ));
-  }
-
-  //Função callbak que remove um item
-  void remover(List<Item> lista, Item item) {
-    setState(() {
-      lista.remove(item);
-    });
-  }
-
-  void adicionando(List<Item> lista, Item item) {
-    setState(() {
-      lista.add(item);
-    });
   }
 
   @override
@@ -142,26 +131,53 @@ class _HomeState extends State<Home> {
         width: largura,
         child: Padding(
           padding: EdgeInsets.only(left: largura * .010),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Column(
-                  children: itens
-                      .map(
-                        (e) => ItensApresentador(
-                          itemPego: e,
-                          funRemove: (e) => remover(itens, e),
-                          funAdd: (e) => adicionando(itens, e),
-                          item: e.nomeItem,
-                          data: e.dataItem,
-                          altura: altura,
-                          largura: largura,
-                        ),
-                      )
-                      .toList(),
-                ),
-              ],
-            ),
+          child: FutureBuilder<List<Item>>(
+            future: buscandoListaItem(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final List<Item> listaItens = snapshot.data!;
+                if (listaItens.isNotEmpty) {
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: listaItens
+                          .map(
+                            (itemPego) => ItensApresentado(
+                              itemPego: itemPego,
+                              item: itemPego.nomeItem,
+                              data: itemPego.dataItem,
+                              altura: altura,
+                              largura: largura,
+                              funRemove: () => deletandoItem(itemPego),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  );
+                } else {
+                  return SizedBox(
+                    height: altura,
+                    width: largura,
+                    child: const Center(
+                      child: Text("Lista de tarefas vazia"),
+                    ),
+                  );
+                }
+              } else {
+                return SizedBox(
+                  height: altura,
+                  width: largura,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        CircularProgressIndicator(),
+                        Text("Carregando tarefas"),
+                      ],
+                    ),
+                  ),
+                );
+              }
+            },
           ),
         ),
       ),
