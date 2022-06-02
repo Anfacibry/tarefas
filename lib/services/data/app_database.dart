@@ -57,11 +57,6 @@ Future<List<Item>> buscandoListaItem() async {
   return listaConcluida;
 }
 
-Future<void> deletandoDb() async {
-  final Database db = await criandoDataBase();
-  await db.delete(tarefa);
-}
-
 Future<int> deletandoItem(Item item) async {
   final Database db = await criandoDataBase();
   return db.delete(
