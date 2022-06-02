@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: true,
         textTheme: const TextTheme(
           titleLarge: TextStyle(
             color: Colors.black,
