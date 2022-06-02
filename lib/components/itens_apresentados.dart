@@ -35,53 +35,55 @@ class _ItensApresentadorState extends State<ItensApresentado> {
       ),
       child: Row(
         children: [
-          Container(
-            height: widget.altura! * .08,
-            width: widget.largura! * .35,
-            decoration: BoxDecoration(
-              color: widget.itemPego!.confirmacao == 1
-                  ? Cores.corConfirmar
-                  : Cores.corItensParaFazer,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: LayoutBuilder(
-                builder: ((context, constraints) => Padding(
-                      padding: EdgeInsets.only(
-                        left: constraints.maxWidth * .02,
-                        right: constraints.maxWidth * .02,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            DateFormat("dd/MM/yyyy - HH:mm")
-                                .format(widget.data)
-                                .toString(),
-                            style: TextStyle(
-                              fontSize: constraints.maxHeight * .18,
-                              fontWeight: FontWeight.w500,
-                              color: widget.itemPego!.confirmacao == 1
-                                  ? Cores.corItensParaFazer
-                                  : Cores.corTextDialogo,
-                            ),
-                          ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(
-                              widget.item,
+          Expanded(
+            child: Container(
+              height: widget.altura! * .08,
+              width: widget.largura! * .35,
+              decoration: BoxDecoration(
+                color: widget.itemPego!.confirmacao == 1
+                    ? Cores.corConfirmar
+                    : Cores.corItensParaFazer,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: LayoutBuilder(
+                  builder: ((context, constraints) => Padding(
+                        padding: EdgeInsets.only(
+                          left: constraints.maxWidth * .02,
+                          right: constraints.maxWidth * .02,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              DateFormat("dd/MM/yyyy - HH:mm")
+                                  .format(widget.data)
+                                  .toString(),
                               style: TextStyle(
-                                fontSize: constraints.maxHeight * .33,
-                                fontWeight: FontWeight.bold,
+                                fontSize: constraints.maxHeight * .18,
+                                fontWeight: FontWeight.w500,
                                 color: widget.itemPego!.confirmacao == 1
                                     ? Cores.corItensParaFazer
                                     : Cores.corTextDialogo,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ))),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                widget.item,
+                                style: TextStyle(
+                                  fontSize: constraints.maxHeight * .33,
+                                  fontWeight: FontWeight.bold,
+                                  color: widget.itemPego!.confirmacao == 1
+                                      ? Cores.corItensParaFazer
+                                      : Cores.corTextDialogo,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ))),
+            ),
           ),
           //Icone de com botão decancelar o item
           IconButton(
