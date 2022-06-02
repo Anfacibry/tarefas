@@ -3,51 +3,53 @@ import 'package:intl/intl.dart';
 import 'package:tarefas/models/item.dart';
 import 'package:tarefas/themes/constantes.dart';
 
-class ItensApresentador extends StatefulWidget {
+class ItensApresentado extends StatefulWidget {
   final String item;
   final DateTime data;
-  final double altura, largura;
-  final void Function(Item)? funRemove;
-  final void Function(Item)? funAdd;
+  final double? altura, largura;
+  final void Function() funRemove;
+  final void Function() funatualizar;
   final Item? itemPego;
-  const ItensApresentador(
+  const ItensApresentado(
       {required this.item,
       required this.data,
-      required this.altura,
-      required this.largura,
+      this.altura,
+      this.largura,
       this.itemPego,
-      this.funRemove,
-      this.funAdd,
+      required this.funRemove,
+      required this.funatualizar,
       Key? key})
       : super(key: key);
 
   @override
-  State<ItensApresentador> createState() => _ItensApresentadorState();
+  State<ItensApresentado> createState() => _ItensApresentadorState();
 }
 
-class _ItensApresentadorState extends State<ItensApresentador> {
+class _ItensApresentadorState extends State<ItensApresentado> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: widget.altura * .003,
-        bottom: widget.altura * .003,
+        top: widget.altura! * .003,
+        bottom: widget.altura! * .003,
       ),
       child: Row(
         children: [
           Container(
-            height: widget.altura * .08,
-            width: widget.largura * .35,
+            height: widget.altura! * .08,
+            width: widget.largura! * .35,
             decoration: BoxDecoration(
-              color: widget.itemPego!.confirmacao
+              color: widget.itemPego!.confirmacao == 1
                   ? Cores.corConfirmar
                   : Cores.corItensParaFazer,
               borderRadius: BorderRadius.circular(10),
             ),
             child: LayoutBuilder(
                 builder: ((context, constraints) => Padding(
-                      padding:
-                          EdgeInsets.only(left: constraints.maxWidth * .02),
+                      padding: EdgeInsets.only(
+                        left: constraints.maxWidth * .02,
+                        right: constraints.maxWidth * .02,
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -59,7 +61,7 @@ class _ItensApresentadorState extends State<ItensApresentador> {
                             style: TextStyle(
                               fontSize: constraints.maxHeight * .18,
                               fontWeight: FontWeight.w500,
-                              color: widget.itemPego!.confirmacao
+                              color: widget.itemPego!.confirmacao == 1
                                   ? Cores.corItensParaFazer
                                   : Cores.corTextDialogo,
                             ),
@@ -71,7 +73,7 @@ class _ItensApresentadorState extends State<ItensApresentador> {
                               style: TextStyle(
                                 fontSize: constraints.maxHeight * .33,
                                 fontWeight: FontWeight.bold,
-                                color: widget.itemPego!.confirmacao
+                                color: widget.itemPego!.confirmacao == 1
                                     ? Cores.corItensParaFazer
                                     : Cores.corTextDialogo,
                               ),
@@ -83,24 +85,22 @@ class _ItensApresentadorState extends State<ItensApresentador> {
           ),
           //Icone de com botão decancelar o item
           IconButton(
-            onPressed: () {
-              widget.funRemove!(widget.itemPego!);
-            },
+            onPressed: widget.funRemove,
             icon: Icon(
               Icons.cancel_outlined,
               color: Cores.corTextDialogo,
-              size: widget.largura * .04,
+              size: widget.largura! * .04,
             ),
           ),
           //Icone de com botão de confirmar o item o item
           IconButton(
-            onPressed: () {},
+            onPressed: widget.funatualizar,
             icon: Icon(
-              widget.itemPego!.confirmacao
+              widget.itemPego!.confirmacao == 1
                   ? Icons.check_circle
                   : Icons.check_circle_outline,
-              size: widget.largura * .04,
-              color: widget.itemPego!.confirmacao
+              size: widget.largura! * .04,
+              color: widget.itemPego!.confirmacao == 1
                   ? Cores.corConfirmar
                   : Cores.corTextDialogo,
             ),
