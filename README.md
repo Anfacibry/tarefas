@@ -18,4 +18,4 @@ Tem opção de **adicionar** suas ***tarefas*** incluindo **data e hora do SO**.
 > #### Layout do app
 
 > **Tela APP**
-![Tela inicial](assets/images/app.png)
+![Tela inicial](assets/images/layout.png)

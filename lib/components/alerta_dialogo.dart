@@ -58,7 +58,7 @@ class _AlertaDialogoState extends State<AlertaDialogo> {
             ),
             const Spacer(),
             const Text(
-              "Os itens adicionados ficarção disponíveis na tela inicial do seu aplicativo",
+              "Os itens adicionados ficarão disponíveis na tela inicial do seu aplicativo",
               style: TextStyle(
                 color: Cores.corTextDialogo,
                 fontWeight: FontWeight.w500,

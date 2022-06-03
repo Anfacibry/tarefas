@@ -46,7 +46,7 @@ dependencies:
 flutter_icons:
   android: true
   ios: false
-  image_path: "assets/images/icone.png"
+  image_path: "assets/images/nota.png"
 
 dev_dependencies:
   flutter_test:

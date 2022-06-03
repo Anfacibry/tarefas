@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class Cores {
-  static const Color corConfirmar = Color(0xFF75CF55);
+  static const Color corConfirmar = Color(0xFF48BEFD);
   static const Color corBotaoFlutuante = Color(0xFF2854AA);
   static const Color corDialogo = Color(0xFFF3F3F3);
   static const Color corTextDialogo = Color(0xFF6C6B6B);
