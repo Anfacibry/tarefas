@@ -1,4 +1,4 @@
-package com.example.tarefas
+package com.anfacibry.tarefas
 
 import io.flutter.embedding.android.FlutterActivity
 

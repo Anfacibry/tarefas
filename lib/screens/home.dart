@@ -4,7 +4,8 @@ import 'package:tarefas/services/data/app_database.dart';
 
 import 'package:tarefas/themes/constantes.dart';
 
-import '../components/card_dialogo.dart';
+import '../components/alerta_dialogo.dart';
+
 import '../models/item.dart';
 
 class Home extends StatefulWidget {
@@ -15,7 +16,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  TextEditingController itemPegoController = TextEditingController();
+  void caixaParaAddItem({
+    required BuildContext context,
+    required double alturaPega,
+    required double larguraPega,
+  }) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => const AlertaDialogo());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +113,6 @@ class _HomeState extends State<Home> {
           context: context,
           alturaPega: altura,
           larguraPega: largura,
-          itemPegoController: itemPegoController,
         ),
         child: const Icon(Icons.add),
         elevation: 10,
